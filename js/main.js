@@ -14,8 +14,9 @@ var wrongInputsMessage = document.getElementById("wrong-inputs");
 var emailisExistMessage = document.getElementById("emailisExist");
 var sucssesMessage = document.getElementById("sucsses");
 var emptyInputsMessage = document.getElementById("empty-inputs");
-var welcome = document.getElementById("welcome");
 var currentIndex;
+var existuser = false;
+var validuser = false;
 
 
 
@@ -52,38 +53,43 @@ function validatePassword(password) {
 }
 function validateuserName(uname) {
 
-    const usernamePattern = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/;
+    const usernamePattern = /^[a-zA-Z]([-']?[a-zA-Z]+)*( [a-zA-Z]([-']?[a-zA-Z]+)*)+$/;
 
     return usernamePattern.test(uname);
 
 }
+
 function isExist(email) {
-    var x;
+
     users.forEach(Element => {
         if (Element.userEmail == email) {
-            console.log(email);
-           
-            x= true;
-            console.log(x); 
+
+            existuser = true;
+
         }
         else {
-           x= false;
+            existuser = false;
         }
-        console.log(x); 
-        return x;
+
+
     });
 }
-function isValidUser(email,password) {
+function isValidUser(email, password) {
     users.forEach(Element => {
-        if (Element.userEmail == email&&Element.userPassword==password) {
-            currentIndex=users.indexOf(Element);
-            return true;
-            
+        if (Element.userEmail == email && Element.userPassword == password) {
+            currentIndex = users.indexOf(Element);
+            validuser = true;
+
         }
         else {
-            return false;
+            validuser = false;
         }
     });
+}
+function clear(){
+    nameInput.value="";
+    emailInput.value="";
+    passwordInput.value="";
 }
 
 
@@ -92,18 +98,28 @@ function isValidUser(email,password) {
 //HANDLE EVENTS
 
 signupLink.addEventListener("click", function () {
+    emailisExistMessage.classList.add("d-none");
+    sucssesMessage.classList.add("d-none");
+    emptyInputsMessage.classList.add("d-none");
+    wrongInputsMessage.classList.add("d-none");
     loginMessage.classList.remove("d-none");
     signupMessage.classList.add("d-none");
     nameInput.classList.remove("d-none");
     signupButton.classList.remove("d-none");
     loginButton.classList.add("d-none");
+    clear();
 });
 loginLink.addEventListener("click", function () {
+    emailisExistMessage.classList.add("d-none");
+    sucssesMessage.classList.add("d-none");
+    emptyInputsMessage.classList.add("d-none");
+    wrongInputsMessage.classList.add("d-none");
     loginMessage.classList.add("d-none");
     signupMessage.classList.remove("d-none");
     nameInput.classList.add("d-none");
     signupButton.classList.add("d-none");
     loginButton.classList.remove("d-none");
+    clear();
 });
 nameInput.addEventListener("input", function () {
     if (!validateuserName(nameInput.value)) {
@@ -136,17 +152,20 @@ signupButton.addEventListener("click", function () {
         emptyInputsMessage.classList.add("d-none");
         if (validateuserName(nameInput.value) && validateEmail(emailInput.value) && validatePassword(passwordInput.value)) {
             wrongInputsMessage.classList.add("d-none");
-            var x=isExist(emailInput.value);
-            console.log(x);
-            
-            if (isExist(emailInput.value)) {
-                emailisExistMessage.classList.remove("d-none")
-                console.log("EXIST")
+
+            isExist(emailInput.value);
+
+            if (existuser) {
+                emailisExistMessage.classList.remove("d-none");
+                sucssesMessage.classList.add("d-none");
+
             }
             else {
                 addUser();
-                
-                sucssesMessage.classList.remove("d-none")
+
+                sucssesMessage.classList.remove("d-none");
+                emailisExistMessage.classList.add("d-none");
+                clear();
 
             }
 
@@ -162,14 +181,15 @@ signupButton.addEventListener("click", function () {
 
 });
 
-loginButton.addEventListener("click",function(){
-    if ( emailInput.value != "" && passwordInput.value != "") {
+loginButton.addEventListener("click", function () {
+    if (emailInput.value != "" && passwordInput.value != "") {
         emptyInputsMessage.classList.add("d-none");
-        if (isValidUser(emailInput.value,passwordInput.value)) {
+        isValidUser(emailInput.value, passwordInput.value);
+        if (validuser) {
             wrongInputsMessage.classList.add("d-none");
+            localStorage.setItem("username", users[currentIndex].userName)
             window.location.href = "home.html";
-            welcome.innerHTML="Welcome"+users[currentIndex].userName;
-      
+            clear();
         }
         else {
             wrongInputsMessage.classList.remove("d-none");
