@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/all.css">
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/media.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="main bg-dark h-100">
+        <br>
+        <div class="w-50 login-form bg-dark mx-auto my-5 shadow-lg text-center ">
+            <div class="container p-5">
+                <h1 class="text-capitalize text-info mb-5">
+                    smart login system
+                </h1>
+
+                <input type="text" name="" id="name" class="form-control text-white bg-transparent mb-3 d-none"
+                    placeholder="Enter your name">
+                    <p id="validnameMessaege"class="d-none text-danger   text-start">please enter A valid name</p>
+                <input type="email" name="" id="email" class="form-control text-white bg-transparent mb-3"
+                    placeholder="Enter your email">
+                    <p id="validemailMessaege"class="d-none text-danger   text-start">please enter A valid email</p>
+                <input type="password" name="" id="password" class="form-control text-white bg-transparent mb-3"
+                    placeholder="Enter your password">
+                    <p id="validpasswordMessaege"class="d-none text-danger   text-start">please enter A valid password</p>
+
+                <p class="d-none text-danger" id="empty-inputs">All inputs are required</p>
+                <p class="d-none text-danger" id="wrong-inputs">Incorrect email or password</p>
+                <p class="d-none text-danger" id="emailisExist">this user is already exist</p>
+                <p class="d-none text-success" id="sucsses">user is saved successfully</p>
+                <button class="btn btn-outline-info mb-4 w-100" id="login">Login</button>
+                <button class="btn btn-outline-info d-none mb-4 w-100" id="signup">Sign Up</button>
+                <p class="text-white" id="signup-message">Don't have an account ? <a href="#" class="text-white"id="signup-link">Sign Up</a></p>
+                <p class="text-white d-none " id="login-message">You have an account ? <a href="#" class="text-white" id="login-link">Sign In</a></p>
+
+            </div>
+
+
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
