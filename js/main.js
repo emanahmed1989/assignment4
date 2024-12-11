@@ -15,8 +15,8 @@ var emailisExistMessage = document.getElementById("emailisExist");
 var sucssesMessage = document.getElementById("sucsses");
 var emptyInputsMessage = document.getElementById("empty-inputs");
 var currentIndex;
-var existuser = false;
-var validuser = false;
+var existuser ;
+var validuser ;
 
 
 
@@ -60,30 +60,28 @@ function validateuserName(uname) {
 }
 
 function isExist(email) {
-
+    existuser=false;
     users.forEach(Element => {
         if (Element.userEmail == email) {
 
             existuser = true;
+            
 
         }
-        else {
-            existuser = false;
-        }
+        
 
 
     });
 }
 function isValidUser(email, password) {
+    validuser=false;
     users.forEach(Element => {
         if (Element.userEmail == email && Element.userPassword == password) {
             currentIndex = users.indexOf(Element);
             validuser = true;
 
         }
-        else {
-            validuser = false;
-        }
+      
     });
 }
 function clear(){
@@ -158,6 +156,7 @@ signupButton.addEventListener("click", function () {
             if (existuser) {
                 emailisExistMessage.classList.remove("d-none");
                 sucssesMessage.classList.add("d-none");
+               
 
             }
             else {
@@ -190,6 +189,7 @@ loginButton.addEventListener("click", function () {
             localStorage.setItem("username", users[currentIndex].userName)
             window.location.href = "home.html";
             clear();
+            
         }
         else {
             wrongInputsMessage.classList.remove("d-none");
